@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-models": "sequelize-automate -t js -h localhost -d postgres -u postgres -p 12345 -P 5432  -e postgres -o src/db/models"
   },
   "dependencies": {
     "@types/node": "18.15.11",
@@ -20,6 +21,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sequelize": "^6.30.0",
+    "sequelize-automate": "^1.2.2",
     "typescript": "5.0.3"
   }
 }

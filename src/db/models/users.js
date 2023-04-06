@@ -1,33 +1,104 @@
-"use strict";
-
-const bcrypt = require("bcryptjs");
-
-module.exports = (sequelize, DataTypes) => {
-  const users = sequelize.define(
-    "users",
-    {
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      username: DataTypes.STRING,
-      password: DataTypes.STRING,
-      email: DataTypes.STRING,
-      phoneNumber: DataTypes.STRING,
-      gender: DataTypes.STRING,
-      status: DataTypes.BOOLEAN,
+const {
+  DataTypes
+} = require('sequelize');
+module.exports = sequelize => {
+  const attributes = {
+    userid: {
+      type: DataTypes.CHAR(255),
+      allowNull: false,
+      defaultValue: null,
+      comment: null,
+      primaryKey: true,
+      field: "userid",
+      autoIncrement: false
     },
-    {
-      hooks: {
-        beforeCreate: async function (user, options) {
-          // Do stuff
-          user.password = await bcrypt.hashSync(user.password, 10);
-        },
-      },
+    firstname: {
+      type: DataTypes.CHAR(32),
+      allowNull: false,
+      defaultValue: null,
+      comment: null,
+      primaryKey: false,
+      field: "firstname",
+      autoIncrement: false
+    },
+    middlename: {
+      type: DataTypes.CHAR(32),
+      allowNull: true,
+      defaultValue: "NULL",
+      comment: null,
+      primaryKey: false,
+      field: "middlename",
+      autoIncrement: false
+    },
+    surname: {
+      type: DataTypes.CHAR(32),
+      allowNull: false,
+      defaultValue: null,
+      comment: null,
+      primaryKey: false,
+      field: "surname",
+      autoIncrement: false
+    },
+    email: {
+      type: DataTypes.CHAR(32),
+      allowNull: false,
+      defaultValue: null,
+      comment: null,
+      primaryKey: false,
+      field: "email",
+      autoIncrement: false
+    },
+    password: {
+      type: DataTypes.CHAR(255),
+      allowNull: true,
+      defaultValue: "NULL",
+      comment: null,
+      primaryKey: false,
+      field: "password",
+      autoIncrement: false
+    },
+    profilepicture: {
+      type: DataTypes.CHAR(32),
+      allowNull: false,
+      defaultValue: null,
+      comment: null,
+      primaryKey: false,
+      field: "profilepicture",
+      autoIncrement: false
+    },
+    createdat: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: null,
+      comment: null,
+      primaryKey: false,
+      field: "createdat",
+      autoIncrement: false
+    },
+    deactivatedat: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: null,
+      comment: null,
+      primaryKey: false,
+      field: "deactivatedat",
+      autoIncrement: false
+    },
+    updatedat: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: null,
+      comment: null,
+      primaryKey: false,
+      field: "updatedat",
+      autoIncrement: false
     }
-  );
-  users.associate = function (models) {
-    // associations can be defined here
-    users.hasMany(models.posts, { as: "posts" });
-    users.hasMany(models.jobs, { as: "jobs" });
   };
-  return users;
+  const options = {
+    tableName: "users",
+    comment: "",
+    indexes: []
+  };
+  const UsersModel = sequelize.define("users_model", attributes, options);
+  return UsersModel;
 };
